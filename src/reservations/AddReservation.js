@@ -5,22 +5,61 @@ import { Link, useNavigate } from "react-router-dom";
 export default function AddReservation() {
     let navigate = useNavigate();
 
-    const [book, setBook] = useState({
-        name: "",
-        author: ""
+    const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
+
+    const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
+
+    const [reservation, setReservation] = useState({
+        userId: "",
+        bookName: ""
     });
 
-    const { name, author } = book;
+    const { userId, bookName } = reservation;
 
     const onInputChange = (e) => {
-        setBook({ ...book, [e.target.name]: e.target.value });
+        setReservation({ ...reservation, [e.target.name]: e.target.value });
     };
+
+    const [status, setStatus] = useState(null);
+
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/reservation/add/", book);
-        navigate("/");
+
+        // try{
+        await axios.post(`http://localhost:8080/reservation/add?userId=${userId}&bookName=${bookName}`).then(response => {
+
+            setResponseMessage(response.data);
+            // Extract the status from the response
+            const statusCode = response.status;
+
+            // Update status state
+            setStatus(statusCode);
+
+            // Navigate based on status
+            if (statusCode === 200 || statusCode === 201) {
+                // Navigate to success route
+                //   navigate('/');
+            } else if (statusCode === 404) {
+                throw new Error(response.status)
+                // Navigate to error route
+                //   navigate('/NotFoundPage');
+            }
+            else {
+                navigate('/error');
+            }
+        }).catch(err => {
+            setErrorMessage(err.response.data); // Set error message from error response
+            
+        })
+        // } catch{
+        // 
+        //   };
+
+
+
     };
+
 
     return (
         <div className="container">
@@ -32,34 +71,44 @@ export default function AddReservation() {
 
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
-                                Name
+                                User id
                             </label>
                             <input
                                 type={"text"}
                                 className="form-control"
-                                placeholder="Enter book name"
-                                name="name"
-                                value={name}
+                                placeholder="Enter reservation userId"
+                                name="userId"
+                                value={userId}
                                 onChange={(e) => onInputChange(e)}
                             />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
-                                Author
+                                Book Name
                             </label>
                             <input
                                 type={"text"}
                                 className="form-control"
-                                placeholder="Enter book author"
-                                name="author"
-                                value={author}
+                                placeholder="Enter reservation book name"
+                                name="bookName"
+                                value={bookName}
                                 onChange={(e) => onInputChange(e)}
                             />
                         </div>
 
+                        {/* Display the response message */}
+                        {responseMessage && (
+                            <div className="alert alert-info" role="alert">
+                                {responseMessage}
+                            </div>
+                        )}
 
-
+                        {errorMessage && (
+                            <div className="error-message">
+                                {errorMessage}
+                            </div>
+                        )}
 
 
                         <button type="submit" className="btn btn-outline-primary">

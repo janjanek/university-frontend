@@ -10,6 +10,8 @@ export default function AddUser() {
         occupation: ""
     });
 
+    const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
+
     const { name, occupation } = user;
 
     const onInputChange = (e) => {
@@ -18,8 +20,14 @@ export default function AddUser() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/user/add", user);
-        navigate("/");
+        try {
+            const response = await axios.post("http://localhost:8080/user/add", user);
+            setResponseMessage(response.data); // Set the response message
+            // navigate("/"); // Navigate to the home page
+        } catch (error) {
+            console.error('Error occurred:', error);
+            // Handle error, maybe set an error message for the user
+        }
     };
 
     return (
@@ -56,8 +64,12 @@ export default function AddUser() {
                             
                         </div>
 
-
-
+                        {/* Display the response message */}
+                        {responseMessage && (
+                            <div className="alert alert-info" role="alert">
+                                {responseMessage}
+                            </div>
+                        )}
 
                         <button type="submit" className="btn btn-outline-primary">
                             Submit
