@@ -2,40 +2,35 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
-export default function Home() {
-  const [users, setUsers] = useState([]);
+export default function Books() {
+  const [books, setBooks] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
-    loadUsers();
+    loadBooks();
   }, []);
 
-  const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/user/find?id=663d183f6e331a50b53521ef`);
-    setUsers(result.data);
-  };
 
-
-  const loadUsers = async () => {
-    const result = await axios.get(`http://localhost:8080/user/find/all`);
-    setUsers(result.data);
+  const loadBooks = async () => {
+    const result = await axios.get(`http://localhost:8080/book/find/all`);
+    setBooks(result.data);
   };
 
 //   const deleteUser = async (id) => {
 //     await axios.delete(`http://localhost:8080/user/`);
-//     loadUsers();
+//     loadBooks();
 //   };
 
   return (
     <div className="container">
       <div className="py-4">
-        <table className="table border shadow table-striped">
+        <table className="table border shadow">
           <thead>
             <tr>
               <th scope="col">S.N</th>
               <th scope="col">Name</th>
-              <th scope="col">Occupation</th>
+              <th scope="col">Author</th>
               <th scope="col">Id</th>
               <th scope="col">Action</th>
             </tr>
@@ -44,23 +39,22 @@ export default function Home() {
 
 
 
-          {users.map((user, index) => (
+          {books.map((book, index) => (
               <tr>
                 <th scope="row" key={index}>
                   {index + 1}
                 </th>
-                <td>{user.name}</td>
-                <td>{user.occupation}</td>
-                <td>{user.id}</td>
+                <td>{book.name}</td>
+                <td>{book.author}</td>
+                <td>{book.id}</td>
                 <td>
                   
                 <Link
                     className="btn btn-primary mx-2"
-                    to={`/viewUser/${user.id}`}
+                    to={`/viewBook/${book.id}`}
                   >
                     View
                   </Link>
-
 
                 </td>
 

@@ -16,7 +16,11 @@ export default function Navbar() {
         </Link>
 
 
-        <Link className="btn btn-outline-light me-3" to="/addBook">
+        <Link className="btn btn-outline-light me-3" to="/book/viewAll">
+          View books
+        </Link>
+
+        <Link className="btn btn-outline-light me-3" to="/book/add">
           Add Book
         </Link>
 
@@ -24,6 +28,11 @@ export default function Navbar() {
         <Link className="btn btn-outline-light me-3" to="/addReservation">
           Add Reservation
         </Link>
+
+        <Link className="btn btn-outline-light me-3" to="/viewReservations">
+          View Reservations 
+        </Link>
+
 
         <Link className="btn btn-outline-light me-3" to="/returnBook">
           Return Book
