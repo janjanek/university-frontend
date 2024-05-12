@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import CloseButton from 'react-bootstrap/CloseButton';
 
 export default function AddUser() {
     let navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function AddUser() {
     });
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
+
+    const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
 
     const { name, occupation } = user;
 
@@ -66,10 +69,21 @@ export default function AddUser() {
 
                         {/* Display the response message */}
                         {responseMessage && (
-                            <div className="alert alert-info" role="alert">
-                                {responseMessage}
+                            <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{responseMessage}</span>
+                                <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
+                            
+                        )}
+                        <div/>
+
+                        {errorMessage && (
+                            <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{errorMessage}</span>
+                                <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
                         )}
+                        <div/>
 
                         <button type="submit" className="btn btn-outline-primary">
                             Submit

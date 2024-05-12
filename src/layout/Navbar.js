@@ -25,6 +25,10 @@ export default function Navbar() {
           Add Reservation
         </Link>
 
+        <Link className="btn btn-outline-light me-3" to="/returnBook">
+          Return Book
+        </Link>
+
       </nav>
 
     </div>

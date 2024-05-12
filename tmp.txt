@@ -1,0 +1,15 @@
+
+                        {/* Display the response message */}
+                        {responseMessage && (
+                            <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{responseMessage}</span>
+                                <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
+                        )}
+                        
+                        {errorMessage && (
+                            <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{errorMessage}</span>
+                                <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
+                        )}

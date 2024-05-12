@@ -1,9 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import CloseButton from 'react-bootstrap/CloseButton';
+
 
 export default function AddBook() {
     let navigate = useNavigate();
+
+    const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
+
+    const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
 
     const [book, setBook] = useState({
         name: "",
@@ -18,8 +24,14 @@ export default function AddBook() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/reservation/addBook", book);
-        navigate("/");
+        await axios.post("http://localhost:8080/reservation/addBook", book).then(response => {
+
+        setResponseMessage(response.data);
+        // Extract the status from the response
+    }).catch(err => {
+        setErrorMessage(err.response.data); // Set error message from error response
+
+    });
     };
 
     return (
@@ -59,6 +71,24 @@ export default function AddBook() {
                         </div>
 
 
+
+                        {/* Display the response message */}
+                        {responseMessage && (
+                            <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{responseMessage}</span>
+                                <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
+                            
+                        )}
+                        <div/>
+
+                        {errorMessage && (
+                            <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{errorMessage}</span>
+                                <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
+                        )}
+                        <div/>
 
 
 

@@ -1,5 +1,7 @@
 import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Navbar from './layout/Navbar';
 import Home from './pages/Home';
 
@@ -7,9 +9,13 @@ import AddUser from './users/AddUser';
 import ViewUser from './users/ViewUser';
 import AddBook from './books/AddBook';
 import AddReservation from './reservations/AddReservation';
+import ReturnBook from './reservations/ReturnBook';
+
+
 import NotFoundPage from './responses/NotFoundPage';
 import BookAddedPage from './responses/BookAdded';
 import BookReservedSuccess from './responses/BookReserved';
+
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -30,6 +36,10 @@ function App() {
           <Route exact path="/addBook" element={<AddBook />} />
 
           <Route exact path="/addReservation/" element={<AddReservation />} />
+
+          <Route exact path="/returnBook/" element={<ReturnBook />} />
+
+
 
           <Route exact path="/notFoundPage" element={<NotFoundPage />} />
           <Route exact path="/bookAddedSuccess" element={<BookAddedPage />} />

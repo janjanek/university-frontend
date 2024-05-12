@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
 
-export default function AddReservation() {
+export default function ReturnBook() {
     let navigate = useNavigate();
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
@@ -11,15 +11,15 @@ export default function AddReservation() {
     const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
 
 
-    const [reservation, setReservation] = useState({
+    const [book, setBook] = useState({
         userId: "",
-        bookName: ""
+        bookId: ""
     });
 
-    const { userId, bookName } = reservation;
+    const { userId, bookId } = book;
 
     const onInputChange = (e) => {
-        setReservation({ ...reservation, [e.target.name]: e.target.value });
+        setBook({ ...book, [e.target.name]: e.target.value });
     };
 
     const [status, setStatus] = useState(null);
@@ -29,7 +29,7 @@ export default function AddReservation() {
         e.preventDefault();
 
         // try{
-        await axios.post(`http://localhost:8080/reservation/add?userId=${userId}&bookName=${bookName}`).then(response => {
+        await axios.post(`http://localhost:8080/reservation/return?userId=${userId}&bookId=${bookId}`).then(response => {
 
             setResponseMessage(response.data);
             // Extract the status from the response
@@ -63,7 +63,7 @@ export default function AddReservation() {
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Add Reservation</h2>
+                    <h2 className="text-center m-4">Return book</h2>
 
                     <form onSubmit={(e) => onSubmit(e)}>
 
@@ -74,7 +74,7 @@ export default function AddReservation() {
                             <input
                                 type={"text"}
                                 className="form-control"
-                                placeholder="Enter reservation userId"
+                                placeholder="Enter Id of a user to return book"
                                 name="userId"
                                 value={userId}
                                 onChange={(e) => onInputChange(e)}
@@ -83,14 +83,14 @@ export default function AddReservation() {
 
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
-                                Book Name
+                                Book Id
                             </label>
                             <input
                                 type={"text"}
                                 className="form-control"
-                                placeholder="Enter reservation book name"
-                                name="bookName"
-                                value={bookName}
+                                placeholder="Enter id of a book to return"
+                                name="bookId"
+                                value={bookId}
                                 onChange={(e) => onInputChange(e)}
                             />
                         </div>
@@ -104,7 +104,6 @@ export default function AddReservation() {
                             
                         )}
                         <div/>
-    
 
                         {errorMessage && (
                             <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
