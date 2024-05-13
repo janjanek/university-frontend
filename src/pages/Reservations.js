@@ -13,14 +13,9 @@ export default function Reservations() {
 
 
     const loadReservations = async () => {
-        const result = await axios.get(`http://localhost:8080/reservation/find/all`);
+        const result = await axios.get(`http://localhost:8080/reservations/`);
         setReservations(result.data);
     };
-
-    //   const deleteUser = async (id) => {
-    //     await axios.delete(`http://localhost:8080/user/`);
-    //     loadReservations();
-    //   };
 
     return (
         <div className="container">
@@ -28,28 +23,25 @@ export default function Reservations() {
                 <table className="table border shadow">
                     <thead>
                         <tr>
-                            <th scope="col">S.N</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Id</th>
+                            <th scope="col font-weight: normal">#</th>
+                            <th scope="col">Book name</th>
+                            <th scope="col">Reservations</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
+
                     <tbody>
-
-
-
                         {reservations.map((reservationQueue, index) => (
                             <tr>
                                 <th scope="row" key={index}>
                                     {index + 1}
                                 </th>
-                                <td>{reservationQueue.name}</td>
-                                <td>
-                                    <table className="table table-bordered table-striped table-sm">
+                                <td class="align-middle">{reservationQueue.name}</td>
+                                <td className>
+                                    <table className="my-1 table table-bordered table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                 <th scope="col">S.N</th>
+                                                 <th scope="col">#</th>
                                                 <th scope="col">userId</th>
                                                 <th scope="col">Occupation</th>
                                                 <th scope="col">Reservation </th>
@@ -71,12 +63,10 @@ export default function Reservations() {
 
                                     </table>
                                 </td>
-
-                                <td>{reservationQueue.id}</td>
-                                <td>
+                                <td className="align-middle">
                                     <Link
-                                        className="btn btn-primary mx-2"
-                                        to={`/viewReservation/${reservationQueue.id}`}
+                                        className="btn btn-primary"
+                                        to={`/reservations/${reservationQueue.name}`}
                                     >
                                         View
                                     </Link>

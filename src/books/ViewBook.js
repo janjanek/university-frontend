@@ -18,7 +18,7 @@ export default function ViewBook() {
     }, []);
 
     const loadBook = async () => {
-        const result = await axios.get(`http://localhost:8080/book/find?id=${id}`);
+        const result = await axios.get(`http://localhost:8080/books/${id}`);
         setBook(result.data);
     };
 
@@ -61,8 +61,8 @@ export default function ViewBook() {
                             </ul>
                         </div>
                     </div>
-                    <Link className="btn btn-primary my-2" to={"/"}>
-                        Back to Home
+                    <Link className="btn btn-primary my-2" to={"/books"}>
+                        Back to Book list
                     </Link>
                 </div>
             </div>

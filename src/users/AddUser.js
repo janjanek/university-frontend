@@ -24,12 +24,11 @@ export default function AddUser() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/user/add", user);
-            setResponseMessage(response.data); // Set the response message
-            // navigate("/"); // Navigate to the home page
+            const response = await axios.put("http://localhost:8080/users/", user);
+            setResponseMessage(response.data);
         } catch (error) {
+            setErrorMessage(error.response.data)
             console.error('Error occurred:', error);
-            // Handle error, maybe set an error message for the user
         }
     };
 
@@ -57,14 +56,14 @@ export default function AddUser() {
 
                         <div className="mb-3">
                             <label for="dropdown">Select Option:</label>
-                            
+
                             <select className="form-control" id="dropdown" name="occupation" onChange={(e) => onInputChange(e)}>
                                 <option value="">Choose occupation</option>
                                 <option value="COMMON_USER">Common user</option>
                                 <option value="STUDENT">Student</option>
                                 <option value="UNIVERSITY_EMPLOYEE">University employee</option>
                             </select>
-                            
+
                         </div>
 
                         {/* Display the response message */}
@@ -73,9 +72,9 @@ export default function AddUser() {
                                 <span className="ms-2 me-4 ">{responseMessage}</span>
                                 <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
-                            
+
                         )}
-                        <div/>
+                        <div />
 
                         {errorMessage && (
                             <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
@@ -83,12 +82,12 @@ export default function AddUser() {
                                 <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
                         )}
-                        <div/>
+                        <div />
 
                         <button type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>
-                        <Link className="btn btn-outline-danger mx-2" to="/">
+                        <Link className="btn btn-outline-danger mx-2" to="/users    ">
                             Cancel
                         </Link>
                     </form>

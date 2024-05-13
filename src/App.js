@@ -12,6 +12,8 @@ import AddReservation from './reservations/AddReservation';
 import ReturnBook from './reservations/ReturnBook';
 import Books from './pages/Books';
 import Reservations from './pages/Reservations';
+import ViewReservation from './reservations/ViewReservations'
+import Users from './users/Users';
 
 import NotFoundPage from './responses/NotFoundPage';
 import BookAddedPage from './responses/BookAdded';
@@ -32,19 +34,20 @@ function App() {
         <Routes>
 
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/addUser" element={<AddUser />} />
-          <Route exact path="/viewuser/:id" element={<ViewUser />} />
 
+          <Route exact path="/users" element={<Users />} />
+          <Route exact path="/users/add" element={<AddUser />} />
+          <Route exact path="/users/:id" element={<ViewUser />} />
+
+          <Route exact path="/books/" element={<Books />} />
           <Route exact path="/book/add" element={<AddBook />} />
-          <Route exact path="/viewBook/:id" element={<ViewBook />} />
-
-          <Route exact path="/addReservation/" element={<AddReservation />} />
-
+          <Route exact path="/books/:id" element={<ViewBook />} />
           <Route exact path="/returnBook/" element={<ReturnBook />} />
 
-          <Route exact path="/book/viewAll" element={<Books />} />
 
-          <Route exact path="/viewReservations" element={<Reservations />} />
+          <Route exact path="/reservations" element={<Reservations />} />
+          <Route exact path="/reservations/:id" element={<ViewReservation />} />
+          <Route exact path="/addReservation/" element={<AddReservation />} />
 
 
 

@@ -13,7 +13,7 @@ export default function Books() {
 
 
   const loadBooks = async () => {
-    const result = await axios.get(`http://localhost:8080/book/find/all`);
+    const result = await axios.get(`http://localhost:8080/books/`);
     setBooks(result.data);
   };
 
@@ -25,10 +25,10 @@ export default function Books() {
   return (
     <div className="container">
       <div className="py-4">
-        <table className="table border shadow">
+        <table className="table table-striped border shadow">
           <thead>
             <tr>
-              <th scope="col">S.N</th>
+              <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Author</th>
               <th scope="col">Id</th>
@@ -51,7 +51,7 @@ export default function Books() {
                   
                 <Link
                     className="btn btn-primary mx-2"
-                    to={`/viewBook/${book.id}`}
+                    to={`/books/${book.id}`}
                   >
                     View
                   </Link>

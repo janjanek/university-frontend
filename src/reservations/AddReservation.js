@@ -29,7 +29,7 @@ export default function AddReservation() {
         e.preventDefault();
 
         // try{
-        await axios.post(`http://localhost:8080/reservation/add?userId=${userId}&bookName=${bookName}`).then(response => {
+        await axios.post(`http://localhost:8080/reservations/?userId=${userId}&bookName=${bookName}`).then(response => {
 
             setResponseMessage(response.data);
             // Extract the status from the response
@@ -104,7 +104,6 @@ export default function AddReservation() {
                             
                         )}
                         <div/>
-    
 
                         {errorMessage && (
                             <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
@@ -117,7 +116,7 @@ export default function AddReservation() {
                         <button type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>
-                        <Link className="btn btn-outline-danger mx-2" to="/">
+                        <Link className="btn btn-outline-danger mx-2" to="/reservations">
                             Cancel
                         </Link>
                     </form>

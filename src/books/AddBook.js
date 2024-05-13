@@ -21,17 +21,22 @@ export default function AddBook() {
     const onInputChange = (e) => {
         setBook({ ...book, [e.target.name]: e.target.value });
     };
-
+    
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/reservation/addBook", book).then(response => {
+        await axios.put("http://localhost:8080/books/", book).then(response => {
 
+        console.log(response);
         setResponseMessage(response.data);
         // Extract the status from the response
-    }).catch(err => {
-        setErrorMessage(err.response.data); // Set error message from error response
-
-    });
+    }).catch( err => {
+        if(err.message){
+            setErrorMessage(err.response.data.error);
+            } else {
+                setErrorMessage("Error occured!");
+            }
+        }
+    );
     };
 
     return (
@@ -95,7 +100,7 @@ export default function AddBook() {
                         <button type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>
-                        <Link className="btn btn-outline-danger mx-2" to="/">
+                        <Link className="btn btn-outline-danger mx-2" to="/books">
                             Cancel
                         </Link>
                     </form>

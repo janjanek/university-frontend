@@ -11,12 +11,12 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <Link className="btn btn-outline-light me-3" to="/addUser">
+        <Link className="btn btn-outline-light me-3" to="/users/add">
           Add User
         </Link>
 
 
-        <Link className="btn btn-outline-light me-3" to="/book/viewAll">
+        <Link className="btn btn-outline-light me-3" to="/books">
           View books
         </Link>
 
@@ -29,7 +29,7 @@ export default function Navbar() {
           Add Reservation
         </Link>
 
-        <Link className="btn btn-outline-light me-3" to="/viewReservations">
+        <Link className="btn btn-outline-light me-3" to="/reservations">
           View Reservations 
         </Link>
 
