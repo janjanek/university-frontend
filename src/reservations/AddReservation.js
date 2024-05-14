@@ -54,8 +54,6 @@ export default function AddReservation() {
             setErrorMessage(err.response.data); // Set error message from error response
 
         })
-
-
     };
 
 
@@ -101,9 +99,9 @@ export default function AddReservation() {
                                 <span className="ms-2 me-4 ">{responseMessage}</span>
                                 <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
-                            
+
                         )}
-                        <div/>
+                        <div />
 
                         {errorMessage && (
                             <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
@@ -111,9 +109,9 @@ export default function AddReservation() {
                                 <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
                         )}
-                        <div/>
+                        <div />
 
-                        <button type="submit" className="btn btn-outline-primary">
+                        <button type="submit" className="btn btn-outline-success">
                             Submit
                         </button>
                         <Link className="btn btn-outline-danger mx-2" to="/reservations">

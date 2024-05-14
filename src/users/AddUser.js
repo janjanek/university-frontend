@@ -27,7 +27,7 @@ export default function AddUser() {
             const response = await axios.put("http://localhost:8080/users/", user);
             setResponseMessage(response.data);
         } catch (error) {
-            setErrorMessage(error.response.data)
+            setErrorMessage(error.response.data.error)
             console.error('Error occurred:', error);
         }
     };
@@ -84,7 +84,7 @@ export default function AddUser() {
                         )}
                         <div />
 
-                        <button type="submit" className="btn btn-outline-primary">
+                        <button type="submit" className="btn btn-outline-success">
                             Submit
                         </button>
                         <Link className="btn btn-outline-danger mx-2" to="/users    ">

@@ -21,22 +21,22 @@ export default function AddBook() {
     const onInputChange = (e) => {
         setBook({ ...book, [e.target.name]: e.target.value });
     };
-    
+
     const onSubmit = async (e) => {
         e.preventDefault();
         await axios.put("http://localhost:8080/books/", book).then(response => {
 
-        console.log(response);
-        setResponseMessage(response.data);
-        // Extract the status from the response
-    }).catch( err => {
-        if(err.message){
-            setErrorMessage(err.response.data.error);
+            console.log(response);
+            setResponseMessage(response.data);
+            // Extract the status from the response
+        }).catch(err => {
+            if (err.message) {
+                setErrorMessage(err.response.data.error);
             } else {
                 setErrorMessage("Error occured!");
             }
         }
-    );
+        );
     };
 
     return (
@@ -83,9 +83,9 @@ export default function AddBook() {
                                 <span className="ms-2 me-4 ">{responseMessage}</span>
                                 <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
-                            
+
                         )}
-                        <div/>
+                        <div />
 
                         {errorMessage && (
                             <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
@@ -93,11 +93,9 @@ export default function AddBook() {
                                 <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
                         )}
-                        <div/>
+                        <div />
 
-
-
-                        <button type="submit" className="btn btn-outline-primary">
+                        <button type="submit" className="btn btn-outline-success">
                             Submit
                         </button>
                         <Link className="btn btn-outline-danger mx-2" to="/books">

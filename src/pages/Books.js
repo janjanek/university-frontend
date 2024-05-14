@@ -11,16 +11,10 @@ export default function Books() {
     loadBooks();
   }, []);
 
-
   const loadBooks = async () => {
     const result = await axios.get(`http://localhost:8080/books/`);
     setBooks(result.data);
   };
-
-//   const deleteUser = async (id) => {
-//     await axios.delete(`http://localhost:8080/user/`);
-//     loadBooks();
-//   };
 
   return (
     <div className="container">
@@ -36,8 +30,6 @@ export default function Books() {
             </tr>
           </thead>
           <tbody>
-
-
 
           {books.map((book, index) => (
               <tr>

@@ -10,14 +10,24 @@ export default function ViewUser() {
         reservedBookNames: [""],
     });
 
+    const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
+
     const { id } = useParams();
     useEffect(() => {
         loadUser();
     }, []);
 
     const loadUser = async () => {
-        const result = await axios.get(`http://localhost:8080/users/${id}`);
-        setUser(result.data);
+        await axios.get(`http://localhost:8080/users/${id}`).then(response =>
+            setUser(response.data),
+        ).catch(err => {
+            if (err.message) {
+                setErrorMessage(err.response.data);
+            } else {
+                setErrorMessage("Error occured!");
+            }
+        }
+        );
     };
 
 
@@ -64,7 +74,24 @@ export default function ViewUser() {
                             </ul>
                         </div>
                     </div>
-                    <Link className="btn btn-primary my-2" to={"/users"}>
+                    <div>
+
+                        <div />
+                        {errorMessage && (
+                            <div className="alert alert-danger justify-content-between align-items-center m-3 " style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{errorMessage}</span>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Display the response message */}
+                    {!errorMessage && (
+                        <Link className="btn btn-outline-danger mx-2" to={`/users/delete/${user.id}`}>
+                            Delete User
+                        </Link>
+                    )}
+
+                    <Link className="btn btn-primary m-2" to={"/users"}>
                         Back to User list
                     </Link>
                 </div>

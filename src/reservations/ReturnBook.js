@@ -29,27 +29,10 @@ export default function ReturnBook() {
         e.preventDefault();
 
         // try{
-        await axios.post(`http://localhost:8080/reservation/return?userId=${userId}&bookId=${bookId}`).then(response => {
+        await axios.post(`http://localhost:8080/books/return?userId=${userId}&bookId=${bookId}`).then(response => {
 
             setResponseMessage(response.data);
-            // Extract the status from the response
-            const statusCode = response.status;
 
-            // Update status state
-            setStatus(statusCode);
-
-            // Navigate based on status
-            if (statusCode === 200 || statusCode === 201) {
-                // Navigate to success route
-                //   navigate('/');
-            } else if (statusCode === 404) {
-                throw new Error(response.status)
-                // Navigate to error route
-                //   navigate('/NotFoundPage');
-            }
-            else {
-                navigate('/error');
-            }
         }).catch(err => {
             setErrorMessage(err.response.data); // Set error message from error response
 
@@ -101,9 +84,9 @@ export default function ReturnBook() {
                                 <span className="ms-2 me-4 ">{responseMessage}</span>
                                 <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
-                            
+
                         )}
-                        <div/>
+                        <div />
 
                         {errorMessage && (
                             <div className="alert alert-info justify-content-between align-items-center" style={{ display: 'inline-block' }} role="alert">
@@ -111,7 +94,7 @@ export default function ReturnBook() {
                                 <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
                         )}
-                        <div/>
+                        <div />
 
                         <button type="submit" className="btn btn-outline-primary">
                             Submit

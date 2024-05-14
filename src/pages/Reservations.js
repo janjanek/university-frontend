@@ -75,8 +75,6 @@ export default function Reservations() {
                             </tr>
                         ))}
 
-
-
                     </tbody>
                 </table>
             </div>
