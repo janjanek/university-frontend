@@ -12,8 +12,12 @@ export default function Books() {
   }, []);
 
   const loadBooks = async () => {
-    const result = await axios.get(`http://localhost:8080/books/`);
-    setBooks(result.data);
+    await axios.get(`http://localhost:8080/books/`).then(response => {
+      setBooks(response.data);
+      // console.log(user);
+    }).catch(err =>{
+      console.log(JSON.stringify(err));
+    });
   };
 
   return (
@@ -25,19 +29,27 @@ export default function Books() {
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Author</th>
+              <th scope="col">Is borrowed</th>
+              <th scope="col">Borrowed by</th>
+              <th scope="col">Borrow started</th>
+              <th scope="col">Borrow ends</th>
               <th scope="col">Id</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
 
-            {books.map((book, index) => (
+            {books.map((book, index) => (      
               <tr>
                 <th scope="row" key={index}>
                   {index + 1}
                 </th>
                 <td>{book.name}</td>
                 <td>{book.author}</td>
+                <td>{book.isBorrowed && "Borrowed"} {!book.isBorrowed && "Free"}</td>
+                <td>{book.userName}</td>
+                <td>{book.borrowStart}</td>
+                <td>{book.borrowEnd}</td>
                 <td>{book.id}</td>
                 <td>
 
@@ -47,15 +59,15 @@ export default function Books() {
                   >
                     View
                   </Link>
-
                 </td>
+
 
               </tr>
             ))}
-
           </tbody>
         </table>
       </div>
     </div>
+    
   );
 }

@@ -76,6 +76,10 @@ export default function ViewBook() {
                                 </li>
                                 <li className="list-group-item">
                                     <b>Borrower: </b>
+                                    {book.userName}
+                                </li>
+                                <li className="list-group-item">
+                                    <b>Borrower id: </b>
                                     {book.borrower}
                                 </li>
                                 <li className="list-group-item">
@@ -114,14 +118,14 @@ export default function ViewBook() {
 
                     <div />
 
-                    {!errorMessage && (
+                    {!errorMessage && !book.isBorrowed && (
                         <Link className="btn btn-outline-danger mx-2" to={`/books/delete/${book.id}`}>
                             Delete book
                         </Link>
 
                     )}
 
-                    {!errorMessage && (
+                    {!errorMessage && book.isBorrowed &&(
                         <button className="btn btn-outline-success mx-2" onClick={() => onSubmit()}>
                             Return book
                         </button>
