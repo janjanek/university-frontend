@@ -31,7 +31,7 @@ export default function Books() {
           </thead>
           <tbody>
 
-          {books.map((book, index) => (
+            {books.map((book, index) => (
               <tr>
                 <th scope="row" key={index}>
                   {index + 1}
@@ -40,8 +40,8 @@ export default function Books() {
                 <td>{book.author}</td>
                 <td>{book.id}</td>
                 <td>
-                  
-                <Link
+
+                  <Link
                     className="btn btn-primary mx-2"
                     to={`/books/${book.id}`}
                   >
@@ -52,8 +52,6 @@ export default function Books() {
 
               </tr>
             ))}
-
-
 
           </tbody>
         </table>

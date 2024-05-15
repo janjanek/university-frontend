@@ -73,9 +73,8 @@ export default function AddBook() {
                                 value={author}
                                 onChange={(e) => onInputChange(e)}
                             />
+
                         </div>
-
-
 
                         {/* Display the response message */}
                         {responseMessage && (
@@ -85,6 +84,7 @@ export default function AddBook() {
                             </div>
 
                         )}
+
                         <div />
 
                         {errorMessage && (
@@ -93,6 +93,7 @@ export default function AddBook() {
                                 <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
                             </div>
                         )}
+
                         <div />
 
                         <button type="submit" className="btn btn-outline-success">

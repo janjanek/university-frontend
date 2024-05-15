@@ -43,40 +43,39 @@ export default function DeleteBook() {
                                 <ul className="list-group list-group-flush">
                                     <li className="list-group-item">
                                         <b>Id: {id}</b>
-
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
+                        {/* Display the response message */}
+                        {responseMessage && (
+                            <div className="alert alert-success justify-content-between align-items-center mt-2" style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4">{responseMessage}</span>
+                                <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
 
-                    {/* Display the response message */}
-                    {responseMessage && (
-                        <div className="alert alert-success justify-content-between align-items-center mt-2" style={{ display: 'inline-block' }} role="alert">
-                            <span className="ms-2 me-4">{responseMessage}</span>
-                            <CloseButton onClick={() => setResponseMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
-                        </div>
+                        )}
 
-                    )}
-                    <div />
+                        <div />
 
-                    {errorMessage && (
-                        <div className="alert alert-danger justify-content-between align-items-center mt-2 " style={{ display: 'inline-block' }} role="alert">
-                            <span className="ms-2 me-4 ">{errorMessage}</span>
-                            <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
-                        </div>
-                    )}
-                    <div />
-                    <button type="submit" className="btn btn-danger px-5 m-2">
-                        Delete
-                    </button>
-                    <Link className="btn btn-primary m-3" to={"/books"}>
-                        Back to Book list
-                    </Link>
+                        {errorMessage && (
+                            <div className="alert alert-danger justify-content-between align-items-center mt-2 " style={{ display: 'inline-block' }} role="alert">
+                                <span className="ms-2 me-4 ">{errorMessage}</span>
+                                <CloseButton onClick={() => setErrorMessage('')} className="me-2" style={{ position: 'absolute', top: '5px', right: '0px' }} />
+                            </div>
+                        )}
 
+                        <div />
+
+                        <button type="submit" className="btn btn-danger px-5 m-2">
+                            Delete
+                        </button>
+                        <Link className="btn btn-primary m-3" to={"/books"}>
+                            Back to Book list
+                        </Link>
 
                     </form>
-
 
                 </div>
             </div>

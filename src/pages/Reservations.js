@@ -11,7 +11,6 @@ export default function Reservations() {
         loadReservations();
     }, []);
 
-
     const loadReservations = async () => {
         const result = await axios.get(`http://localhost:8080/reservations/`);
         setReservations(result.data);
@@ -23,44 +22,41 @@ export default function Reservations() {
                 <table className="table border shadow">
                     <thead>
                         <tr>
-                            <th scope="col font-weight: normal">#</th>
-                            <th scope="col">Book name</th>
-                            <th scope="col">Reservations</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" className="align-middle font-weight: normal">#</th>
+                            <th scope="col" className="align-middle">Book name</th>
+                            <th scope="col" className="align-middle">Reservations</th>
+                            <th scope="col" className="align-middle">Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {reservations.map((reservationQueue, index) => (
                             <tr>
-                                <th scope="row" key={index}>
+                                <th scope="row" className="align-middle" key={index}>
                                     {index + 1}
                                 </th>
-                                <td class="align-middle">{reservationQueue.name}</td>
+                                <td className="align-middle">{reservationQueue.name}</td>
                                 <td className>
                                     <table className="my-1 table table-bordered table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                 <th scope="col">#</th>
-                                                <th scope="col">userId</th>
+                                                <th scope="col">#</th>
+                                                <th scope="col">User name</th>
                                                 <th scope="col">Occupation</th>
                                                 <th scope="col">Reservation </th>
                                             </tr>
                                         </thead>
-
                                         <tbody>
                                             {reservationQueue.userReservations.map((reservation, otherIndex) => (
                                                 <tr>
                                                     <th scope="row" key={otherIndex}>
                                                         {otherIndex + 1}
                                                     </th>
-                                                    <td>{reservation.userId}</td>
+                                                    <td>{reservation.userName}</td>
                                                     <td> {reservation.occupation}</td>
                                                     <td>{reservation.reservationDate}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
-
                                     </table>
                                 </td>
                                 <td className="align-middle">
