@@ -14,8 +14,9 @@ export default function Home() {
   const loadUsers = async () => { };
 
   return (
+
     <div className="container shadow p-5">
-      Hello in university bibliotheca homepage!
+      <p className="fw-bold">Welcome to Bibliotheca! Official management system for University Libraries.</p>
     </div>
   );
 }

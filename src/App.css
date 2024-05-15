@@ -28,6 +28,16 @@
   color: #61dafb;
 }
 
+.App-background {
+  background-color: #3c39d4;
+  color: white;
+}
+
+.App-button {
+  background-color: #5379ed;
+  color: rgb(255, 255, 255);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

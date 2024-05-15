@@ -26,7 +26,7 @@ export default function Books() {
         <table className="table table-striped border shadow">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col" className="fw-normal">#</th>
               <th scope="col">Name</th>
               <th scope="col">Author</th>
               <th scope="col">Is borrowed</th>

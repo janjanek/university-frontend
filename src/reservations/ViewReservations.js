@@ -54,7 +54,7 @@ export default function ViewReservationQueue() {
                 <table className="table table-bordered table-striped" onSubmit={onSubmit}>
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col" className="fw-normal">#</th>
                             <th scope="col">userName</th>
                             <th scope="col">Occupation</th>
                             <th scope="col">Reservation </th>

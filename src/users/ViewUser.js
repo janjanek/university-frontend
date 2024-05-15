@@ -90,7 +90,7 @@ export default function ViewUser() {
                             Delete User
                         </Link>
                     )}
-                    <Link className="btn btn-primary m-2" to={`/reservations/add/${user.id}`}>
+                    <Link className="btn btn-success m-2 " to={`/reservations/add/${user.id}`}>
                         Reserve book
                     </Link>
 

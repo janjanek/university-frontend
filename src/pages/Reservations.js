@@ -22,7 +22,7 @@ export default function Reservations() {
                 <table className="table border shadow">
                     <thead>
                         <tr>
-                            <th scope="col" className="align-middle font-weight: normal">#</th>
+                            <th scope="col" className="align-middle fw-normal">#</th>
                             <th scope="col" className="align-middle">Book name</th>
                             <th scope="col" className="align-middle">Reservations</th>
                             <th scope="col" className="align-middle">Action</th>
@@ -39,7 +39,7 @@ export default function Reservations() {
                                     <table className="my-1 table table-bordered table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
+                                                <th scope="col"className="align-middle fw-normal">#</th>
                                                 <th scope="col">User name</th>
                                                 <th scope="col">Occupation</th>
                                                 <th scope="col">Reservation </th>
@@ -48,7 +48,7 @@ export default function Reservations() {
                                         <tbody>
                                             {reservationQueue.userReservations.map((reservation, otherIndex) => (
                                                 <tr>
-                                                    <th scope="row" key={otherIndex}>
+                                                    <th scope="row" key={otherIndex} className="align-middle fw-normal">
                                                         {otherIndex + 1}
                                                     </th>
                                                     <td>{reservation.userName}</td>

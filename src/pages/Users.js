@@ -27,7 +27,7 @@ export default function Users() {
                 <table className="table border shadow table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col" className="fw-normal">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Occupation</th>
                             <th scope="col">Id</th>
