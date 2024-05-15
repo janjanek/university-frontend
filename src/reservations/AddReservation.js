@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
 
 export default function AddReservation() {
@@ -16,7 +16,10 @@ export default function AddReservation() {
         bookName: ""
     });
 
+
     const { userId, bookName } = reservation;
+
+    
 
     const onInputChange = (e) => {
         setReservation({ ...reservation, [e.target.name]: e.target.value });
@@ -24,32 +27,20 @@ export default function AddReservation() {
 
     const [status, setStatus] = useState(null);
 
+    const { id } = useParams();
+
+    const [apiOptions, setApiOptions] = useState({ a: 1 })
+
+    useEffect(() => {
+       
+        setReservation({ ...reservation, userId: id });
+    }, [apiOptions])
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        // try{
         await axios.post(`http://localhost:8080/reservations/?userId=${userId}&bookName=${bookName}`).then(response => {
-
             setResponseMessage(response.data);
-            // Extract the status from the response
-            const statusCode = response.status;
-
-            // Update status state
-            setStatus(statusCode);
-
-            // Navigate based on status
-            if (statusCode === 200 || statusCode === 201) {
-                // Navigate to success route
-                //   navigate('/');
-            } else if (statusCode === 404) {
-                throw new Error(response.status)
-                // Navigate to error route
-                //   navigate('/NotFoundPage');
-            }
-            else {
-                navigate('/error');
-            }
         }).catch(err => {
             setErrorMessage(err.response.data); // Set error message from error response
 
@@ -62,7 +53,6 @@ export default function AddReservation() {
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Add Reservation</h2>
-
                     <form onSubmit={(e) => onSubmit(e)}>
 
                         <div className="mb-3">
@@ -111,9 +101,9 @@ export default function AddReservation() {
                         )}
                         <div />
 
-                        <button type="submit" className="btn btn-outline-success">
+                        {bookName &&<button type="submit" className="btn btn-outline-success">
                             Submit
-                        </button>
+                        </button>}
                         <Link className="btn btn-outline-danger mx-2" to="/reservations">
                             Cancel
                         </Link>

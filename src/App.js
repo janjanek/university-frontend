@@ -53,6 +53,7 @@ function App() {
           <Route exact path="/reservations" element={<Reservations />} />
           <Route exact path="/reservations/:id" element={<ViewReservation />} />
           <Route exact path="/reservations/add" element={<AddReservation />} />
+          <Route exact path="/reservations/add/:id" element={<AddReservation />} />
 
 
 
