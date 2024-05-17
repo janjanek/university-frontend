@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { AuthContext } from '../AuthContext';
 
 export default function Reservations() {
     const [reservations, setReservations] = useState([]);
 
     const { id } = useParams();
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
 
     useEffect(() => {
         loadReservations();
     }, []);
 
     const loadReservations = async () => {
-        const result = await axios.get(`http://localhost:8080/reservations/`);
+        const result = await axios.get(`http://localhost:8080/reservations/`, headers);
         setReservations(result.data);
     };
 

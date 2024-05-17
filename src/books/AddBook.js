@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
+import { AuthContext } from '../AuthContext';
 
 
 export default function AddBook() {
@@ -10,21 +11,30 @@ export default function AddBook() {
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
     const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
+    
+    const {auth} = useContext(AuthContext);
 
     const [book, setBook] = useState({
         name: "",
         author: ""
     });
 
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
     const { name, author } = book;
 
     const onInputChange = (e) => {
         setBook({ ...book, [e.target.name]: e.target.value });
+        console.log("Dupa");
+
+        console.log(auth);
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.put("http://localhost:8080/books/", book).then(response => {
+        await axios.put("http://localhost:8080/books/", book, headers).then(response => {
 
             console.log(response);
             setResponseMessage(response.data);

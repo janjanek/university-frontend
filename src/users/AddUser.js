@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
+import { AuthContext } from '../AuthContext';
 
 export default function AddUser() {
     let navigate = useNavigate();
@@ -10,6 +11,12 @@ export default function AddUser() {
         name: "",
         occupation: ""
     });
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
@@ -24,7 +31,7 @@ export default function AddUser() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put("http://localhost:8080/users/", user);
+            const response = await axios.put("http://localhost:8080/users/", user, headers);
             setResponseMessage(response.data);
         } catch (error) {
             setErrorMessage(error.response.data.error)

@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { AuthContext } from '../AuthContext';
 
 export default function Books() {
   const [books, setBooks] = useState([]);
 
   const { id } = useParams();
+  const {auth} = useContext(AuthContext);
+    
+  const headers = { headers: {
+    'Authorization': `${auth}` 
+  } };
+
 
   useEffect(() => {
     loadBooks();
   }, []);
 
   const loadBooks = async () => {
-    await axios.get(`http://localhost:8080/books/`).then(response => {
+    await axios.get(`http://localhost:8080/books/`, headers).then(response => {
       setBooks(response.data);
       // console.log(user);
     }).catch(err =>{

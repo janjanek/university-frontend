@@ -3,7 +3,7 @@ import { DropdownButton, Dropdown } from 'react-bootstrap'
 
 export default function Navbar() {
   return (
-    <div class="App-background">
+    <div className="App-background">
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark">
           <a className="navbar-brand ms-4 m-3" href="/"><b>Bibliotheca</b></a>

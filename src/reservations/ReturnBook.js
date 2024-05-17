@@ -1,10 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
+import { AuthContext } from '../AuthContext';
 
 export default function ReturnBook() {
     let navigate = useNavigate();
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
@@ -29,7 +36,7 @@ export default function ReturnBook() {
         e.preventDefault();
 
         // try{
-        await axios.post(`http://localhost:8080/books/return?userId=${userId}&bookId=${bookId}`).then(response => {
+        await axios.post(`http://localhost:8080/books/return?userId=${userId}&bookId=${bookId}`, null, headers).then(response => {
 
             setResponseMessage(response.data);
 

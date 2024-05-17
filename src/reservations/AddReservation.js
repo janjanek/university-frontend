@@ -1,10 +1,18 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
+import { AuthContext } from '../AuthContext';
 
 export default function AddReservation() {
     let navigate = useNavigate();
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
+
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
@@ -39,16 +47,18 @@ export default function AddReservation() {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        await axios.post(`http://localhost:8080/reservations/?userId=${userId}&bookName=${bookName}`).then(response => {
+        await axios.post(`http://localhost:8080/reservations/?userId=${userId}&bookName=${bookName}`, null, headers).then(response => {
             setResponseMessage(response.data);
+
         }).catch(err => {
             setErrorMessage(err.response.data); // Set error message from error response
 
         })
     };
 
-
+    console.log(`${auth}`);
     return (
+        
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">

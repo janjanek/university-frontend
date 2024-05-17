@@ -1,13 +1,20 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
+import { AuthContext } from '../AuthContext';
 
 
 
 export default function DeleteUser() {
 
     const { id } = useParams();
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
@@ -15,7 +22,7 @@ export default function DeleteUser() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.delete(`http://localhost:8080/users/${id}`).then(response => {
+        await axios.delete(`http://localhost:8080/users/${id}`, headers).then(response => {
 
             console.log(response);
             setResponseMessage(response.data);
