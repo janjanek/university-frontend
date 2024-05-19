@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { AuthContext } from '../AuthContext';
 
 export default function ViewUser() {
     const [user, setUser] = useState({
@@ -9,6 +10,12 @@ export default function ViewUser() {
         borrowedBookIds: [""],
         reservedBookNames: [""],
     });
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
 
     const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
 
@@ -18,7 +25,7 @@ export default function ViewUser() {
     }, []);
 
     const loadUser = async () => {
-        await axios.get(`http://localhost:8080/users/${id}`).then(response =>
+        await axios.get(`http://localhost:8080/users/${id}`, headers).then(response =>
             setUser(response.data),
         ).catch(err => {
             if (err.message) {
@@ -90,6 +97,9 @@ export default function ViewUser() {
                             Delete User
                         </Link>
                     )}
+                    <Link className="btn btn-success m-2 " to={`/reservations/add/${user.id}`}>
+                        Reserve book
+                    </Link>
 
                     <Link className="btn btn-primary m-2" to={"/users"}>
                         Back to User list

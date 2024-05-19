@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { AuthContext } from '../AuthContext';
 
 export default function Reservations() {
     const [reservations, setReservations] = useState([]);
 
     const { id } = useParams();
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
 
     useEffect(() => {
         loadReservations();
     }, []);
 
     const loadReservations = async () => {
-        const result = await axios.get(`http://localhost:8080/reservations/`);
+        const result = await axios.get(`http://localhost:8080/reservations/`, headers);
         setReservations(result.data);
     };
 
@@ -22,7 +29,7 @@ export default function Reservations() {
                 <table className="table border shadow">
                     <thead>
                         <tr>
-                            <th scope="col" className="align-middle font-weight: normal">#</th>
+                            <th scope="col" className="align-middle fw-normal">#</th>
                             <th scope="col" className="align-middle">Book name</th>
                             <th scope="col" className="align-middle">Reservations</th>
                             <th scope="col" className="align-middle">Action</th>
@@ -39,7 +46,7 @@ export default function Reservations() {
                                     <table className="my-1 table table-bordered table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
+                                                <th scope="col"className="align-middle fw-normal">#</th>
                                                 <th scope="col">User name</th>
                                                 <th scope="col">Occupation</th>
                                                 <th scope="col">Reservation </th>
@@ -48,7 +55,7 @@ export default function Reservations() {
                                         <tbody>
                                             {reservationQueue.userReservations.map((reservation, otherIndex) => (
                                                 <tr>
-                                                    <th scope="row" key={otherIndex}>
+                                                    <th scope="row" key={otherIndex} className="align-middle fw-normal">
                                                         {otherIndex + 1}
                                                     </th>
                                                     <td>{reservation.userName}</td>

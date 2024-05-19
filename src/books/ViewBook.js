@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CloseButton } from "react-bootstrap";
+import { AuthContext } from '../AuthContext';
 
 
 export default function ViewBook() {
@@ -14,6 +15,13 @@ export default function ViewBook() {
         borrowEnd: ""
     });
 
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+
+
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
     const [errorMessage, setErrorMessage] = useState(""); // Initialize error message state variable
@@ -25,7 +33,7 @@ export default function ViewBook() {
     }, []);
 
     const loadBook = async () => {
-        await axios.get(`http://localhost:8080/books/${id}`).then(response =>
+        await axios.get(`http://localhost:8080/books/${id}`, headers).then(response =>
             setBook(response.data),
         ).catch(err => {
             if (err.message) {
@@ -38,7 +46,7 @@ export default function ViewBook() {
     };
 
     const returnBook = async () => {
-        await axios.post(`http://localhost:8080/books/return?userId=${book.borrower}&bookId=${book.id}`).then(response => {
+        await axios.post(`http://localhost:8080/books/return?userId=${book.borrower}&bookId=${book.id}`, null, headers).then(response => {
             setResponseMessage(response.data);
 
         }).catch(err => {
@@ -76,6 +84,10 @@ export default function ViewBook() {
                                 </li>
                                 <li className="list-group-item">
                                     <b>Borrower: </b>
+                                    {book.userName}
+                                </li>
+                                <li className="list-group-item">
+                                    <b>Borrower id: </b>
                                     {book.borrower}
                                 </li>
                                 <li className="list-group-item">
@@ -114,14 +126,14 @@ export default function ViewBook() {
 
                     <div />
 
-                    {!errorMessage && (
+                    {!errorMessage && !book.isBorrowed && (
                         <Link className="btn btn-outline-danger mx-2" to={`/books/delete/${book.id}`}>
                             Delete book
                         </Link>
 
                     )}
 
-                    {!errorMessage && (
+                    {!errorMessage && book.isBorrowed &&(
                         <button className="btn btn-outline-success mx-2" onClick={() => onSubmit()}>
                             Return book
                         </button>

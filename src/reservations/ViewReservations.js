@@ -1,13 +1,20 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CloseButton } from "react-bootstrap";
+import { AuthContext } from '../AuthContext';
 
 export default function ViewReservationQueue() {
     const [reservationQueue, setReservationQueue] = useState({
         name: "",
         userReservations: []
     });
+    const {auth} = useContext(AuthContext);
+    
+    const headers = { headers: {
+        'Authorization': `${auth}` 
+      } };
+      console.log(`${auth}`);
 
     const [responseMessage, setResponseMessage] = useState(""); // State to store the response message
 
@@ -19,7 +26,7 @@ export default function ViewReservationQueue() {
     }, []);
 
     const loadReservationQueue = async () => {
-        await axios.get(`http://localhost:8080/reservations/${id}`).then(response => {
+        await axios.get(`http://localhost:8080/reservations/${id}`, headers).then(response => {
             console.log('Getting response:');
             console.log(JSON.stringify(response));
             setReservationQueue(response.data);
@@ -33,7 +40,7 @@ export default function ViewReservationQueue() {
 
 
     const onSubmit = async (userId) => {
-        await axios.delete(`http://localhost:8080/reservations/${userId}/${reservationQueue.name}`).then(response => {
+        await axios.delete(`http://localhost:8080/reservations/${userId}/${reservationQueue.name}`, headers).then(response => {
             console.log('Deleting item with id:', userId);
             console.log(JSON.stringify(response));
             setResponseMessage((response.data));
@@ -54,7 +61,7 @@ export default function ViewReservationQueue() {
                 <table className="table table-bordered table-striped" onSubmit={onSubmit}>
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col" className="fw-normal">#</th>
                             <th scope="col">userName</th>
                             <th scope="col">Occupation</th>
                             <th scope="col">Reservation </th>

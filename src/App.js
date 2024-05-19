@@ -21,6 +21,7 @@ import NotFoundPage from './responses/NotFoundPage';
 import BookAddedPage from './responses/BookAdded';
 import BookReservedSuccess from './responses/BookReserved';
 
+import { AuthProvider } from './AuthContext';
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -28,6 +29,8 @@ import ViewBook from './books/ViewBook';
 
 function App() {
   return (
+    <AuthProvider>
+
     <div className="App">
       <Router>
 
@@ -36,7 +39,7 @@ function App() {
         <Routes>
 
           <Route exact path="/" element={<Home />} />
-
+          
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/users/add" element={<AddUser />} />
           <Route exact path="/users/:id" element={<ViewUser />} />
@@ -53,6 +56,7 @@ function App() {
           <Route exact path="/reservations" element={<Reservations />} />
           <Route exact path="/reservations/:id" element={<ViewReservation />} />
           <Route exact path="/reservations/add" element={<AddReservation />} />
+          <Route exact path="/reservations/add/:id" element={<AddReservation />} />
 
 
 
@@ -67,6 +71,8 @@ function App() {
       </Router>
 
     </div>
+    </AuthProvider>
+
   );
 }
 
